@@ -3,7 +3,7 @@
 </div>
 
 <script src="<?= base_url('assets/vendor/jquery/jquery.min.js');?>"></script>
-<script src="<?= base_url('assets/vendor/bootsrap.bundle.min.js');?>"></script>
+<script src="<?= base_url('assets/vendor/bootstrap.bundle.min.js');?>"></script>
 <script src="<?= base_url('assets/vendor/datatables/jquery.dataTables.min.js');?>"></script>
 <script src="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?= base_url('assets/vendor/chart.js/Chart.min.js');?>"></script>
