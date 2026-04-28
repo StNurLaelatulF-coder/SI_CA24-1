@@ -1,14 +1,15 @@
 <?php
 defined('BASEPATH') OR exit ('No direct script acces allowed');
 
-class dashboard extends CI_Controller{
-    public function _construct()
+class Dashboard extends CI_Controller{
+    public function __construct()
     {
         parent::__construct();
     }
     public function index()
     {
         $data['total_buku']=$this->db->count_all('buku');
+        $data['total_anggota']=$this->db->count_all('anggota');
         $data['total_kategori']=$this->db->count_all('kategori');
 
         $this->load->view('templates/header');

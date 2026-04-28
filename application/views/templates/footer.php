@@ -26,19 +26,21 @@
     });
 </script>
 <script>
-    var ctx= document.getElementById("chartDashboard");
-    var chart= new Chart(ctx,{
+    var ctx= document.getElementById("myBarChart").getContext('2d');
+    var chart= new Chart(ctx, {
         type: 'bar',
         data: {
-            labels:['Buku'.'Anggota'],
+            labels:['Buku','Anggota','Kategori'],
             datasets:[{
-                labels:'Jumlah Data',
+                label:'Jumlah Data',
                 data:[
-                <?=$tota_buku;?>,
+                <?=$total_buku;?>,
+                <?=$total_anggota;?>,
                 <?=$total_kategori;?>
                 ],
-                backgroundColor;[
+                backgroundColor: [
                     '#4e73df',
+                    'rgba(204, 135, 17, 0.53)',
                     '#1cc88a'                
                 ]
             }]
@@ -46,11 +48,9 @@
         option:{
             responsive: true,
             scales:{
-                yAxes:[{
-                    ticks:{
+                y:{
                         beginAtZero: true
                     }
-                }]
             }
         }
     });
