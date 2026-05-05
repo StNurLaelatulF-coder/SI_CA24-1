@@ -16,17 +16,17 @@ class auth extends CI_Controller{
 
     public function login()
     {
-        $username= $this->input->post('username');
-        $password= $this->input->post('password');
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
 
-        $user= $this->auth_model->cek_login('username', 'password');
+        $user = $this->auth_model->cek_login($username, $password);
 
         if($user){
-            $data=[
-                'id_user'=>$user->id,
-                'username'=>$user->username,
-                'role'=>$user->role,
-                'login'=> TRUE
+            $data = [
+                'id_user' => $user->id,
+                'username'=> $user->username,
+                'role' => $user->role,
+                'login' => TRUE
             ];
 
             $this->session->set_userdata($data);
@@ -34,10 +34,9 @@ class auth extends CI_Controller{
             $this->auth_model->update_last_login($user->id);
             redirect('dashboard');
         }else{
-            $this->session->set_flashdata('error', 'username atau password salah');
-            redirect('login');
+            $this->session->set_flashdata('error', 'Username atau Password salah');
+            redirect('auth');
         }
-        
     }
 
     public function logout()
