@@ -21,6 +21,10 @@ class auth extends CI_Controller{
 
         $user = $this->auth_model->cek_login($username, $password);
 
+        echo"$username";
+        echo"$password";
+        exit();
+
         if($user){
             $data = [
                 'id_user' => $user->id,
