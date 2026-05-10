@@ -12,48 +12,52 @@
 <script>
     $(document).ready(function() {
         $('#dataTable').DataTable({
-            "language":{
-            "search": "Cari:",
-            "lengthMenu": "Tampilkan_MENU_data",
-            "info": "Menampilkan_START_sampai_END_dati_TOTAL_data",
-            "paginate":{
-                "previous":"Sebelumnya",
-                "next": "Berikutnya"
+            "language": {
+                "search": "Cari:",
+                "lengthMenu": "Tampilkan _MENU_ data",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "paginate": {
+                    "previous": "Sebelumnya",
+                    "next": "Berikutnya"
+                }
             }
-        }
-
-    });
+        });
     });
 </script>
+
+<?php if(isset($total_buku)) : ?>
 <script>
-    var ctx= document.getElementById("myBarChart").getContext('2d');
-    var chart= new Chart(ctx, {
+    var ctx = document.getElementById("myBarChart").getContext('2d');
+
+    var chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels:['Buku','Anggota','Kategori'],
-            datasets:[{
-                label:'Jumlah Data',
-                data:[
-                <?=$total_buku;?>,
-                <?=$total_anggota;?>,
-                <?=$total_kategori;?>
+            labels: ['Buku', 'Anggota', 'Kategori'],
+            datasets: [{
+                label: 'Jumlah Data',
+                data: [
+                    <?=$total_buku;?>,
+                    <?=$total_anggota;?>,
+                    <?=$total_kategori;?>
                 ],
                 backgroundColor: [
                     '#4e73df',
                     'rgba(204, 135, 17, 0.53)',
-                    '#1cc88a'                
+                    '#1cc88a'
                 ]
             }]
         },
-        option:{
+        options: {
             responsive: true,
-            scales:{
-                y:{
-                        beginAtZero: true
-                    }
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             }
         }
     });
 </script>
+<?php endif; ?>
+
 </body>
 </html>
