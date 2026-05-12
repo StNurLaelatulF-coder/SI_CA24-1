@@ -16,12 +16,9 @@
                         <tr>
                             <th>No</th>
                             <th>Kode Peminjaman</th>
-                            <th>Anggota ID</th>
+                            <th>Nama Anggota</th>
                             <th>Tanggal Pinjam</th>
-                            <th>Tanggal Jatuh Tempo</th>
                             <th>Status</th>
-                            <th>User ID</th>
-                            <th>Created At</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -37,32 +34,25 @@
 
                             <td><?= $p->kode_peminjaman; ?></td>
 
-                            <td><?= $p->anggota_id; ?></td>
+                            <td><?= $p->nama; ?></td>
 
                             <td><?= $p->tanggal_pinjam; ?></td>
 
-                            <td><?= $p->tanggal_jatuh_tempo; ?></td>
-
                             <td><?= $p->status; ?></td>
 
-                            <td><?= $p->user_id; ?></td>
+                        <td>
+                            <?php if($p->status == 'dipinjam') : ?>
 
-                            <td><?= $p->created_at; ?></td>
-
-                            <td>
-
-                                <a href="<?= site_url('peminjaman/edit/'.$p->id); ?>"
-                                   class="btn btn-warning btn-sm">
-                                    Edit
+                            <a href="<?= site_url('peminjaman/kembali/'.$p->id) ?>" 
+                                class="btn btn-success btn-sm">
+                                Kembalikan
                                 </a>
-
-                                <a href="<?= site_url('peminjaman/hapus/'.$p->id); ?>"
-                                   onclick="return confirm('Yakin?')"
-                                   class="btn btn-danger btn-sm">
-                                    Hapus
-                                </a>
-
-                            </td>
+                            <?php else : ?>
+                            <button class="btn btn-secondary btn-sm" disabled>
+                                Sudah Kembali
+                            </button>
+                            <?php endif; ?>
+                        </td>
                         </tr>
 
                         <?php endforeach; ?>

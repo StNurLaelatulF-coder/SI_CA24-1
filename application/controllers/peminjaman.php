@@ -40,11 +40,20 @@ class Peminjaman extends CI_Controller {
             redirect('peminjaman/tambah');
         }
 
+        $tanggal_pinjam = $this->input->post('tanggal_pinjam');
+        $tanggal_jatuh_tempo = $this->input->post('tanggal_jatuh_tempo');
+
+        // VALIDASI TANGGAL
+        if (strtotime($tanggal_jatuh_tempo) < strtotime($tanggal_pinjam)) {
+            echo "Tanggal jatuh tempo tidak boleh sebelum tanggal peminjaman";
+            return;
+        }
+
         $data = [
             'kode_peminjaman' => uniqid('PMJ-'),
             'anggota_id' => $this->input->post('anggota_id'),
-            'tanggal_pinjam' => $this->input->post('tanggal_pinjam'),
-            'tanggal_jatuh_tempo' => $this->input->post('tanggal_jatuh_tempo'),
+            'tanggal_pinjam' => $tanggal_pinjam,
+            'tanggal_jatuh_tempo' => $tanggal_jatuh_tempo,
             'status' => 'dipinjam',
             'user_id' => $this->session->userdata('id_user')
         ];

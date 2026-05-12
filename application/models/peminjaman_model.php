@@ -7,9 +7,14 @@ class peminjaman_model extends CI_Model {
     {
         $this->db->distinct();
 
-        $this->db->select('peminjaman.*');
+        $this->db->select('peminjaman.*, anggota.nama');
 
         $this->db->from('peminjaman');
+
+        $this->db->join(
+            'anggota',
+            'anggota.id = peminjaman.anggota_id'
+        );
 
         return $this->db->get()->result();
     }
@@ -60,18 +65,14 @@ class peminjaman_model extends CI_Model {
         ])->row();
 
         $today = date('Y-m-d');
+        $jatuh = $pinjam->tanggal_jatuh_tempo;
 
-        $terlambat = 0;
-        $denda = 0;
+// Htung denda
+        $selisih = strtotime($today) - strtotime($jatuh);        
+        $terlambat = $selisih > 0? floor($selisih / 86400) : 0;
+        $denda = $terlambat * 1000;
 
-        if ($today > $pinjam->tanggal_jatuh_tempo) {
-
-            $terlambat = (
-                strtotime($today) -
-                strtotime($pinjam->tanggal_jatuh_tempo)
-            ) / 86400;
-        }
-
+// Simpan Pengembalian
         $this->db->insert('pengembalian', [
             'peminjaman_id' => $id,
             'tanggal_kembali' => $today,
@@ -84,6 +85,12 @@ class peminjaman_model extends CI_Model {
         $this->db->update('peminjaman', [
             'status' => 'kembali'
         ]);
+// Ambil data buku dari detail_peminjaman
+
+        $detail_buku = $this->db->get_where(
+            'detail_peminjaman',
+            ['peminjaman_id' => $id]
+        )->row();
 
         // Tambah stok buku
         $this->db->set('stok', 'stok + 1', FALSE);
