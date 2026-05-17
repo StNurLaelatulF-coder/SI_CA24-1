@@ -29,7 +29,7 @@
     <br>
 
     <a
-        href="<?= site_url('peminjaman/cetak_peminjaman?bulan=' . $bulan); ?>"
+        href="<?= site_url('laporan/cetak_peminjaman?bulan=' . $bulan); ?>"
         target="_blank"
         class="btn btn-success btn-sm"
     >

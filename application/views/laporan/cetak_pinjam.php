@@ -39,10 +39,10 @@
     <?php $no = 1; foreach($data as $d): ?>
     <tr>
         <td><?= $no++; ?></td>
-        <td><?= $p->kode_peminjaman; ?></td>
-        <td><?= $p->nama; ?></td>
-        <td><?= $p->tanggal_pinjam; ?></td>
-        <td><?= $p->status; ?></td>
+        <td><?= $d->kode_peminjaman; ?></td>
+        <td><?= $d->nama; ?></td>
+        <td><?= $d->tanggal_pinjam; ?></td>
+        <td><?= $d->status; ?></td>
     </tr>
     <?php endforeach; ?>
     </table>

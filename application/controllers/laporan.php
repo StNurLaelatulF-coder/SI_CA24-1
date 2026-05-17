@@ -39,4 +39,28 @@ class Laporan extends CI_Controller {
         $this->load->view('laporan/peminjaman', $data);
         $this->load->view('templates/footer');
     }
+
+    public function cetak_peminjaman()
+    {
+        $bulan = $this->input->get('bulan');
+
+        $this->db->select('peminjaman.*, anggota.nama');
+        $this->db->from('peminjaman');
+        $this->db->join(
+            'anggota',
+            'anggota.id = peminjaman.anggota_id'
+        );
+
+        if ($bulan) {
+            $this->db->where(
+                "DATE_FORMAT(tanggal_pinjam, '%Y-%m') =",
+                $bulan
+            );
+        }
+
+        $data['data'] = $this->db->get()->result();
+        $data['bulan'] = $bulan;
+
+        $this->load->view('laporan/cetak_pinjam', $data);
+    }
 }
