@@ -118,13 +118,13 @@ class Peminjaman extends CI_Controller {
 
     public function cetak_peminjaman()
     {
-        $bulan->$this->input->get('bulan');
+        $bulan = $this->input->get('bulan');
 
         $this->db->select('peminjaman.*, anggota.nama');
         $this->db->from('peminjaman');
         $this->db->join('anggota', 'anggota.id = peminjaman.anggota_id');
 
-        id($bulan){
+        if($bulan){
             $this->db->where('DATE_FORMAT(tanggal_pinjam, "%Y-%m")=', $bulan);
 
         }
