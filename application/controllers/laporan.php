@@ -63,4 +63,55 @@ class Laporan extends CI_Controller {
 
         $this->load->view('laporan/cetak_pinjam', $data);
     }
+
+    public function buku()
+    {
+    $kategori = $this->input->get('kategori');
+
+    $this->db->select('buku.*, kategori.nama_kategori');
+    $this->db->from('buku');
+    $this->db->join(
+        'kategori',
+        'kategori.id_kategori = buku.id_kategori'
+    );
+
+    if ($kategori) {
+        $this->db->where('buku.id_kategori', $kategori);
+    }
+
+    $data['data'] = $this->db->get()->result();
+
+    $data['kategori'] = $kategori;
+
+    $data['kategori_list'] = $this->db
+        ->get('kategori')
+        ->result();
+
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar');
+    $this->load->view('templates/topbar');
+    $this->load->view('laporan/buku', $data);
+    $this->load->view('templates/footer');
+    }
+    public function cetak_buku()
+    {
+    $kategori = $this->input->get('kategori');
+
+    $this->db->select('buku.*, kategori.nama_kategori');
+    $this->db->from('buku');
+    $this->db->join(
+        'kategori',
+        'kategori.id_kategori = buku.id_kategori'
+    );
+
+    if ($kategori) {
+        $this->db->where('buku.id_kategori', $kategori);
+    }
+
+    $data['data'] = $this->db->get()->result();
+
+    $data['kategori'] = $kategori;
+
+    $this->load->view('laporan/cetak_buku', $data);
+    }
 }
