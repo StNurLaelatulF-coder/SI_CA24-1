@@ -41,16 +41,36 @@
                             <td><?= $p->status; ?></td>
 
                         <td>
+                        <?php
+                            $today = date('Y-m-d');
+
+                            $selisih = strtotime($today) - strtotime($p->tanggal_jatuh_tempo);
+
+                            $terlambat = $selisih > 8
+                                ? floor($selisih / 86400)
+                                : 0;
+                            ?>    
+
                             <?php if($p->status == 'dipinjam') : ?>
+                            
 
                             <a href="<?= site_url('peminjaman/kembali/'.$p->id) ?>" 
                                 class="btn btn-success btn-sm">
                                 Kembalikan
                                 </a>
+
+                            <a href="<?= site_url('whatsapp/kirim_notifikasi/'.$p->id) ?>" 
+                                class="btn btn-success btn-sm">
+                            
+                            <i class="fab fa-whatsapp"></i> 
+                                Kirim WA
+                                </a>    
+
                             <?php else : ?>
                             <button class="btn btn-secondary btn-sm" disabled>
                                 Sudah Kembali
                             </button>
+                            
                             <?php endif; ?>
                         </td>
                         </tr>
